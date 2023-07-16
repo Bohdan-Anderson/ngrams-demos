@@ -37,7 +37,7 @@ export const nextWords = (text: string) => {
   return nextWords;
 };
 
-export const getNextWords = (text: string, nextWords:Map<string,Map<string,number>>, length:number) => {
+export const getNextWords = (text: string, nextWords:Map<string,Map<string,number>>, length:number, randomness: number) => {
   const wordsArray = normalizeWords(text).split(' ');
   // if the last word is blank remove it
   if (wordsArray[wordsArray.length - 1] === ''){
@@ -54,7 +54,11 @@ export const getNextWords = (text: string, nextWords:Map<string,Map<string,numbe
       console.log('could not find next word')
       break;
     }
-    const sortedNextWords = [...nextWordMap.entries()].sort((a, b) => b[1] - a[1]);
+    const sortedNextWords = [...nextWordMap.entries()]
+      .map(([word, count]) => {
+        return [word, (count/ wordsArray.length) * ( Math.random() * randomness)] as [string, number];
+      })
+      .sort((a, b) => b[1] - a[1]);
     const mostFrequentNextWord = sortedNextWords[0];
     lastWord = outText[outText.length - 1] + ' ' + mostFrequentNextWord[0];
     outText.push(mostFrequentNextWord[0]);

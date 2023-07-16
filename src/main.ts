@@ -49,7 +49,7 @@ const setup = async () => {
   const words = twoMem.nextWords(text);
   const textAreaTwoChange = () => {
     const value = textAreaTwo.value;
-    const nextWords = twoMem.getNextWords(value, words, 30);
+    const nextWords = twoMem.getNextWords(value, words, 30, 0.1);
     textAreaTwoOutput.innerHTML = `<span>${value}</span> ${nextWords}`;
   };
   const autoCompleteFillTwo = () => {
