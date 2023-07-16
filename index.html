@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>N-gram??</title>
+<style>
+  body{
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out 0.2s;
+  }
+</style>
+  </head>
+  <body>
+    <div id="app">
+
+      <h1>Auto Complete</h1>
+      
+      <p>
+        Two models trained on the using the same dataset.
+        The data is from scraping a bunch of Hank Green podcasts and youtube videos.
+      </p>
+
+      <p>
+        Auto predict the next word based on the previous word. There is a bit of randomness in each prediction to avoid loops.
+      </p>
+      <div id="one-word-wrapper" class="wrapper">
+        <textArea id="one-word">
+        </textArea>
+        <div id="one-word-text" class="auto-complete"></div>
+      </div>
+      
+      <p>
+        Auto predict the next word based on the previous two words.
+      </p>
+      <div id="two-word-wrapper" class="wrapper">
+        <textArea id="two-word">
+        </textArea>
+        <div id="two-word-text" class="auto-complete"></div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
