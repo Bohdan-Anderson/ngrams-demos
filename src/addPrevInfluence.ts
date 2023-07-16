@@ -25,7 +25,7 @@ export const prevWords = (text: string) => {
   // normalize the counts to percentages and log them
   for (const [word, prevWordMap] of prevWords.entries()) {
     let totalCount = 0;
-    for (const [prevWord, count] of prevWordMap.entries()) {
+    for (const [_prevWord, count] of prevWordMap.entries()) {
       totalCount += count;
     }
     for (const [prevWord, count] of prevWordMap.entries()) {
@@ -38,7 +38,7 @@ export const prevWords = (text: string) => {
 }
 
 
-const getPrevWordPercentage = (prevWord:string, word: string, prevWords: Map<string, Map<string, number>>) => {
+export const getPrevWordPercentage = (prevWord:string, word: string, prevWords: Map<string, Map<string, number>>) => {
   const prevWordMap = prevWords.get(prevWord);
   if (prevWordMap === undefined) {
     return 0;
@@ -55,7 +55,7 @@ const getPrevWordPercentage = (prevWord:string, word: string, prevWords: Map<str
 
 
 export const getNextWords = (text: string, prevWords: Map<string, Map<string, number>>, length: number) => {
-  const outText = [];
+  // const outText = [];
   const wordsArray = normalizeWords(text).split(' ');
 
   for (let i = 0; i < length; ++i) {
@@ -68,7 +68,7 @@ export const getNextWords = (text: string, prevWords: Map<string, Map<string, nu
 
   }
 
-  return outText.join(' ');
+  // return outText.join(' ');
 }
   
 

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "publish": "npm run build && scp -r dist/* bohdan@pi:/home/bohdan/phone.other/course/auto-complete"
   },
   "devDependencies": {
     "typescript": "^5.0.2",
