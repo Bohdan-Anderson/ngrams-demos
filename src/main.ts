@@ -2,16 +2,21 @@ import './style.css'
 
 import * as singleMemWords from './singleMemWords.ts'
 import * as twoMem from './twoMemWords.ts'
-import * as perplextiy from './perplexity.ts'
+// import * as perplextiy from './perplexity.ts'
 import * as kneserNeySmoothing from './kneserNeySmoothing.ts'
 
 
 const setup = async () => {
 
-  const text = await fetch('./text-raw.json').then(res => res.json()).then(data => {
-    return data.data as string;
-  })
+  const localText = localStorage.getItem('text');
 
+  const text = localText
+    ? localText 
+    : await fetch('./text-raw.json').then(res => res.json()).then(data => {
+      // save the data text to localstorage
+      localStorage.setItem('text', data.data as string);
+      return data.data as string;
+    });
 
   const textAreaOne = document.getElementById('one-word') as HTMLTextAreaElement;
   const textAreaTwo = document.getElementById('two-word') as HTMLTextAreaElement;
@@ -77,17 +82,32 @@ const setup = async () => {
 
 
   
-  const model = await fetch('./kneserModel.json').then(async res => {
-    return kneserNeySmoothing.JSONStringToKneserNeyModel(await res.text());
-  })
+  const kneserModel = localStorage.getItem('kneserModel');
+
+  const model = kneserModel? 
+    kneserNeySmoothing.JSONStringToKneserNeyModel(kneserModel): 
+    await fetch('./kneserModel.json').then(async res => {
+      // save the string to a localstorage
+      const text = (await res.text());
+      localStorage.setItem('kneserModel', text);
+      return kneserNeySmoothing.JSONStringToKneserNeyModel(text);
+    })
   
   // const corpus = kneserNeySmoothing.generateCorpus(text);
   // const model = kneserNeySmoothing.createKneserNeyModel(corpus);
   // console.log(kneserNeySmoothing.KneserNeyModelToJSONString(model));
 
   const textAreaThreeChange = () => {
-    const value = textAreaThree.value;
-    const nextWord = kneserNeySmoothing.getNextWord(value, model);
+    let value = textAreaThree.value;
+    // if the last value is space, remove it
+    if(value[value.length - 1] === ' '){
+      value = value.slice(0, value.length - 1);
+    }
+    let nextWord = kneserNeySmoothing.getNextWord(value, model);
+    for(let i = 0; i < 5; i++){
+      nextWord += " " + kneserNeySmoothing.getNextWord(value + ' ' + nextWord, model);
+    }
+      
     textAreaThreeOutput.innerHTML = `<span>${value}</span> ${nextWord}`;
   }
   const autoCompleteFillThree = () => {
