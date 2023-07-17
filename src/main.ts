@@ -26,9 +26,8 @@ const setup = async () => {
   const textAreaTwoOutput = document.getElementById('two-word-text') as HTMLDivElement;
   const textAreaThreeOutput = document.getElementById('three-text') as HTMLDivElement;
 
-  const textMatchPercentage = document.getElementById('text-match-percentage') as HTMLDivElement;
 
-  if(!textAreaOne || !textAreaTwo || !textAreaThree || !textAreaOneOutput || !textAreaTwoOutput || !textAreaThreeOutput || !textMatchPercentage){
+  if(!textAreaOne || !textAreaTwo || !textAreaThree || !textAreaOneOutput || !textAreaTwoOutput || !textAreaThreeOutput){
     throw new Error('could not find text areas');
   }
 
