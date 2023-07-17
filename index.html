@@ -23,7 +23,7 @@
       </p>
 
       <p>
-        Auto predict the next word based on the previous word. There is a bit of randomness in each prediction to avoid loops.
+        Auto predict the next word based on the previous word. There is a bit of randomness in each prediction to avoid loops. Basically a unigram model.
       </p>
       <div id="one-word-wrapper" class="wrapper">
         <textArea id="one-word">
@@ -38,6 +38,15 @@
         <textArea id="two-word">
         </textArea>
         <div id="two-word-text" class="auto-complete"></div>
+      </div>
+
+      <p>
+        Auto predict with perplexity. Currently matching at <span id="text-match-percentage"></span>.
+      </p>
+      <div id="three-wrapper" class="wrapper">
+        <textArea id="three">
+        </textArea>
+        <div id="three-text" class="auto-complete"></div>
       </div>
     </div>
 
